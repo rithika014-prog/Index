@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Status</title>
+</head>
+<body>
+    <h1>System Status Checker</h1>
+    <p>Welcome to the System Status Checker</p>
+    <div id="statusBanner" style= "background-color: yellow; color:dark violet; fontsize:20px;padding: 10px";>System Status</div>
+    <button id="checkButton">Check System Status</button>
+<script >
+
+
+// Select HTML elements
+
+const banner = document.getElementById("statusBanner");
+const button = document.getElementById("checkButton");
+
+// Arrow function to update banner
+const updateBanner = (message, color) => {
+    banner.innerText = message;
+    banner.style.backgroundColor = color;
+};
+
+// Function to check system status
+const handleSystemCheck = () => {
+
+    // Show checking message only after button click
+    updateBanner("System is Checking...", "yellow");
+
+    // Create a new Promise for every click
+    const checkSystem = new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+
+            const isOnline = true;
+
+            if (isOnline) {
+                resolve("System is Online");
+            }
+            else {
+                reject("System is Offline");
+            }
+
+        }, 2000);
+
+    });
+
+    // Handle Promise result
+    checkSystem
+        .then((message) => {
+            updateBanner(message, "green");
+        })
+        .catch((error) => {
+            updateBanner(error, "red");
+        });
+
+};
+
+// Execute only when button is clicked
+button.addEventListener("click", handleSystemCheck);
+
+
+</script>
+</body>
+</html>
